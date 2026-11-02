@@ -18,6 +18,17 @@ def emotion_detector(text_to_analyze):
     #call the API using requests module
     response = requests.post(URL, json=input_json, headers=headers)
     
+    #return blank values for status code 400
+    if response.status_code == 400:
+        return {
+                'anger': None,
+                'disgust': None,
+                'fear': None,
+                'joy': None,
+                'sadness': None,
+                'dominant_emotion': None
+                }
+
     #Covert response text to JSON object using json module
     response_json = json.loads(response.text)
     
