@@ -20,20 +20,16 @@ def emo_analyzer():
     '''
     text_to_analyze = request.args.get('textToAnalyze').strip()
     result = emotion_detector(text_to_analyze)
-    
     #check for blank response
     if result['dominant_emotion'] is None:
         return "Invalid text! Please try again!."
-        
-    return f"'anger': {result['anger']}, 'disgust': {result['disgust']}, 'fear': {result['fear']}, 'joy': {result['joy']} and 'sadness': {result['sadness']}. The dominant emotion is {result['dominant_emotion']}."
-    
+    formatted_response = f"'anger': {result['anger']}, 'disgust': {result['disgust']}, 'fear': {result['fear']}, 'joy': {result['joy']} and 'sadness': {result['sadness']}. The dominant emotion is {result['dominant_emotion']}." # pylint: disable=line-too-long disable=trailing-whitespace
+    return formatted_response
 @app.route("/")
 def render_index_page():
     ''' This function initiates the rendering of the main application
         page over the Flask channel
     '''
     return render_template('index.html')
-
 if __name__ == "__main__":
-    ''' This functions executes the flask app and deploys it on localhost:5000'''
-    main()
+    app()
